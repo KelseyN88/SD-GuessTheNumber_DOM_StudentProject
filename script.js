@@ -9,20 +9,16 @@ const maxNumber = 100;
 let guesses = 0;
 
 function randomNumber(userGuess, computersNumber) {
-
   while (userGuess !== numberToGuess) {
     //if the guess is either less than the min OR larger than the max numbers 0 || 100 its not in range
     if (userGuess < minNumber || userGuess > maxNumber) {
       return `Whoopsie, that number is not in range. Try again`;
-
     } else if (userGuess < numberToGuess) {
-      guesses = guesses + 1
+      guesses = guesses + 1;
       return `${userGuess} is too low, guess higher!`;
-
     } else if (userGuess > numberToGuess) {
-      guesses = guesses + 1
+      guesses = guesses + 1;
       return `${userGuess} is too high, guess lower!`;
-
     } else {
       return `Congrats! You win. It was ${numberToGuess}. You took ${guesses} guesses.`;
     }
@@ -49,13 +45,14 @@ function randomNumber(userGuess, computersNumber) {
 function startCompGuess(num) {
   // This should return a string that denotes the first guessed number
   // YOUR CODE ...
-  return `is your secrect number ${num}?`;
+  num = 50;
+  return `Is your secrect number ${num}?`;
 }
 
 //variables
 let minNum = 0;
 let maxNum = 100;
-let maxTry = 7;
+let maxTry = 10;
 let guessCount = 0;
 let computerGuess = 0;
 
@@ -67,26 +64,24 @@ function compGuess(reply) {
     */
   while (guessCount < maxTry) {
     let computerGuess = startCompGuess(minNum, maxNum);
-    // setting the mid number to 50 to establish range
-    let midNum = Math.floor((minNum + maxNum) / 2);
+    let midNum = Math.floor((minNum + maxNum) / 2); // setting the mid number to 50 to establish range
 
-    if (reply === "lower") {
-      // setting a new range by setting a newmaximum number
-      maxNum = midNum--;
+    if (guessCount > 6) {
+      return `I think you might be cheating...side eye`;
+    } else if (reply === "lower") {
+      maxNum = midNum--; // setting a new range by setting a newmaximum number
       computerGuess = Math.floor((maxNum + minNum) / 2);
       guessCount = guessCount + 1;
-      return (reply = `is your secret ${computerGuess}?`);
-
+      return (reply = `Is your secret ${computerGuess}?`);
     } else if (reply === "higher") {
-      // setting a new range by setting a new minumum number
-      minNum = midNum++;
+      minNum = midNum++; // setting a new range by setting a new minumum number
       computerGuess = Math.floor((maxNum + minNum) / 2);
       guessCount = guessCount + 1;
-      return (reply = `is your secret ${computerGuess}?`);
-
+      return (reply = `Is your secret ${computerGuess}?`);
     } else {
-      return reply = `Winner, Winner! I only took ${guessCount} guesses!`;
+      return (reply = `Winner, Winner! I only took ${guessCount} guesses!`);
     }
   }
+
   return `Whoops, I ran out of guesses! Better luck next time`;
 }
