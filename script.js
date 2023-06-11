@@ -2,6 +2,8 @@
     - Include a check to see if the user inputs a value out of scope of the desired values (1-100)
     - It should be compared to a variable named: numberToGuess
 */
+
+// variables
 const minNumber = 0;
 const maxNumber = 100;
 let guesses = 0;
@@ -12,12 +14,15 @@ function randomNumber(userGuess, computersNumber) {
     //if the guess is either less than the min OR larger than the max numbers 0 || 100 its not in range
     if (userGuess < minNumber || userGuess > maxNumber) {
       return `Whoopsie, that number is not in range. Try again`;
+
     } else if (userGuess < numberToGuess) {
       guesses = guesses + 1
       return `${userGuess} is too low, guess higher!`;
+
     } else if (userGuess > numberToGuess) {
       guesses = guesses + 1
       return `${userGuess} is too high, guess lower!`;
+
     } else {
       return `Congrats! You win. It was ${numberToGuess}. You took ${guesses} guesses.`;
     }
@@ -62,23 +67,25 @@ function compGuess(reply) {
     */
   while (guessCount < maxTry) {
     let computerGuess = startCompGuess(minNum, maxNum);
+    // setting the mid number to 50 to establish range
     let midNum = Math.floor((minNum + maxNum) / 2);
 
     if (reply === "lower") {
-      // lower
+      // setting a new range by setting a newmaximum number
       maxNum = midNum--;
       computerGuess = Math.floor((maxNum + minNum) / 2);
       guessCount = guessCount + 1;
       return (reply = `is your secret ${computerGuess}?`);
+
     } else if (reply === "higher") {
-      // higher
+      // setting a new range by setting a new minumum number
       minNum = midNum++;
       computerGuess = Math.floor((maxNum + minNum) / 2);
       guessCount = guessCount + 1;
       return (reply = `is your secret ${computerGuess}?`);
+
     } else {
-      let reply = `Winner, Winner! That took ${guessCount} guesses!`;
-      return reply;
+      return reply = `Winner, Winner! I only took ${guessCount} guesses!`;
     }
   }
   return `Whoops, I ran out of guesses! Better luck next time`;
