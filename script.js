@@ -59,32 +59,62 @@ function randomNumber(userGuess, computersNumber)  {
     You are not limited to just these functions. Feel free to create a new function that may be called to help manage the flow of your code.
 */
 
-  //variables
-  let computerGuess = 0
-  let minNum = 0
-  let maxNum = 100
-  let maxTry = 20
-  let guessCount = 0
+
 
 function startCompGuess(num) {
     // This should return a string that denotes the first guessed number
-
     // YOUR CODE ...
+    return `is your secrect number ${num}?`
   // num generates a random number
+  
   // build logic to get a random number - after num
-
-
 
 }
 
+
+
 function compGuess(reply) {
+    //variables
+   
+    let minNum = 0
+    let maxNum = 100
+    let maxTry = 20
+    let guessCount = 0
+    let computerGuess = 0 
+    num = computerGuess
+
+
     /* 
-    *   The parameter "reply" will either be passing "lower", "correct", or "higher". This should be considered when evaluating th logic and response.
+    *   The parameter "reply" will either be passing "lower", "correct", or "higher". This should be considered when evaluating the logic and response.
 
     This should return a string indicating the computers response.
     */
- 
+    while (guessCount < maxTry) {
+      num = startCompGuess(minNum, maxNum)
+      let midNum = Math.floor((minNum + maxNum) / 2)
+      
+       if (computerGuess < midNum) {
+       
+          maxNum = midNum--
+          computerGuess = Math.floor((maxNum + minNum) / 2) 
+          // let questionText = await ask(`Is your number ${computerGuess}?`)
+          guessCount = guessCount + 1
+          return reply = `lower than ${computerGuess}`
+      } else if (computerGuess > midNum) {
+       
+        minNum = midNum ++
+        computerGuess = Math.floor((maxNum + minNum) / 2) 
+        // let questionText = await ask(`Is your number ${computerGuess}?`)
+        guessCount = guessCount + 1
+        return reply = `higher than ${computerGuess}`
 
-  return reply
+      } else {
+          return reply = `${computerGuess} is correct`
+          
+      }
+  
+    }
+
+  
 }
 
