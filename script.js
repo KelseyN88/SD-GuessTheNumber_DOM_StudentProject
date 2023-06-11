@@ -2,47 +2,29 @@
     - Include a check to see if the user inputs a value out of scope of the desired values (1-100)
     - It should be compared to a variable named: numberToGuess
 */
-// guesses = []
-const minNumber = 0
-const maxNumber = 100
-//when i run this using number to guess it says numberToGuess has already been declared in line 1 of my script
+const minNumber = 0;
+const maxNumber = 100;
+let guesses = 0;
 
+function randomNumber(userGuess, computersNumber) {
 
-function randomNumber(userGuess, computersNumber)  {
+  while (userGuess !== numberToGuess) {
+    //if the guess is either less than the min OR larger than the max numbers 0 || 100 its not in range
+    if (userGuess < minNumber || userGuess > maxNumber) {
+      return `Whoopsie, that number is not in range. Try again`;
+    } else if (userGuess < numberToGuess) {
+      guesses = guesses + 1
+      return `${userGuess} is too low, guess higher!`;
+    } else if (userGuess > numberToGuess) {
+      guesses = guesses + 1
+      return `${userGuess} is too high, guess lower!`;
+    } else {
+      return `Congrats! You win. It was ${numberToGuess}. You took ${guesses} guesses.`;
+    }
+  }
+}
 
-
-        //starts the base for guesses
-        let guesses = 0
-
-        // const computersNumber = getRandInt(minNumber, maxNumber)
-      
-        while (userGuess !== numberToGuess) {
-        
-          //if the guess is either less than the min OR larger than the max numbers 0 || 100 its not in range
-          if (userGuess < minNumber || userGuess > maxNumber) {
-            return `Whopsie, that number is not in range. Try again`
-
-          } else if (userGuess < numberToGuess) {
-            return `${userGuess} is too low, guess higher!`
-
-            
-
-          } else if (userGuess > numberToGuess) {
-            return `${userGuess} is too high, guess lower!`
-            
-
-          } else {
-            return `Congrats! You win. It was ${numberToGuess}.`
-            
-          }
-        }
-      
-      }
-
-    // YOUR CODE ABOVE
-
-
-
+// YOUR CODE ABOVE
 
 //* Have the Computer Guess your Number ---------------------------------------------
 /* 
@@ -59,62 +41,45 @@ function randomNumber(userGuess, computersNumber)  {
     You are not limited to just these functions. Feel free to create a new function that may be called to help manage the flow of your code.
 */
 
-
-
 function startCompGuess(num) {
-    // This should return a string that denotes the first guessed number
-    // YOUR CODE ...
-    return `is your secrect number ${num}?`
-  // num generates a random number
-  
-  // build logic to get a random number - after num
-
+  // This should return a string that denotes the first guessed number
+  // YOUR CODE ...
+  return `is your secrect number ${num}?`;
 }
 
-
+//variables
+let minNum = 0;
+let maxNum = 100;
+let maxTry = 7;
+let guessCount = 0;
+let computerGuess = 0;
 
 function compGuess(reply) {
-    //variables
-   
-    let minNum = 0
-    let maxNum = 100
-    let maxTry = 20
-    let guessCount = 0
-    let computerGuess = 0 
-    num = computerGuess
-
-
-    /* 
+  /* 
     *   The parameter "reply" will either be passing "lower", "correct", or "higher". This should be considered when evaluating the logic and response.
 
     This should return a string indicating the computers response.
     */
-    while (guessCount < maxTry) {
-      num = startCompGuess(minNum, maxNum)
-      let midNum = Math.floor((minNum + maxNum) / 2)
-      
-       if (computerGuess < midNum) {
-       
-          maxNum = midNum--
-          computerGuess = Math.floor((maxNum + minNum) / 2) 
-          // let questionText = await ask(`Is your number ${computerGuess}?`)
-          guessCount = guessCount + 1
-          return reply = `lower than ${computerGuess}`
-      } else if (computerGuess > midNum) {
-       
-        minNum = midNum ++
-        computerGuess = Math.floor((maxNum + minNum) / 2) 
-        // let questionText = await ask(`Is your number ${computerGuess}?`)
-        guessCount = guessCount + 1
-        return reply = `higher than ${computerGuess}`
+  while (guessCount < maxTry) {
+    let computerGuess = startCompGuess(minNum, maxNum);
+    let midNum = Math.floor((minNum + maxNum) / 2);
 
-      } else {
-          return reply = `${computerGuess} is correct`
-          
-      }
-  
+    if (reply === "lower") {
+      // lower
+      maxNum = midNum--;
+      computerGuess = Math.floor((maxNum + minNum) / 2);
+      guessCount = guessCount + 1;
+      return (reply = `is your secret ${computerGuess}?`);
+    } else if (reply === "higher") {
+      // higher
+      minNum = midNum++;
+      computerGuess = Math.floor((maxNum + minNum) / 2);
+      guessCount = guessCount + 1;
+      return (reply = `is your secret ${computerGuess}?`);
+    } else {
+      let reply = `Winner, Winner! That took ${guessCount} guesses!`;
+      return reply;
     }
-
-  
+  }
+  return `Whoops, I ran out of guesses! Better luck next time`;
 }
-
